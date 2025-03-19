@@ -1,6 +1,6 @@
 # nanoGPT-MLA
 
-![Multi-Latent Attention](assets/mla.jpg)
+![Multi-Latent Attention](assets/mla_diagram.jpg)
 
 This project is a fork of [nanoGPT](https://github.com/karpathy/nanoGPT) that implements and explores Multi-Latent Attention (MLA) as an alternative to standard Multi-Head Attention (MHA) in transformer architectures.
 
