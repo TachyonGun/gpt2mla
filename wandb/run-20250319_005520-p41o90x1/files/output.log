@@ -1,0 +1,23 @@
+tokens per iteration will be: 491,520
+Initializing a new model from scratch
+Initializing a new model from scratch
+number of parameters: 120.01M
+/users/4/serra082/gpt2mla/train_mla.py:180: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=(dtype == 'float16'))
+using fused AdamW: True
+step 0: train loss 10.9600, val loss 10.9594
+iter 0: loss 10.9531, time 14410.99ms, mfu -100.00%
+Traceback (most recent call last):
+  File "/users/4/serra082/gpt2mla/train_mla.py", line 341, in <module>
+    mfu = model.estimate_mfu(batch_size * gradient_accumulation_steps, dt)
+          ^^^^^^^^^^^^^^^^^^
+  File "/users/4/serra082/miniconda3/envs/mats_sae_training/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1729, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'DistributedDataParallel' object has no attribute 'estimate_mfu'
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/users/4/serra082/gpt2mla/train_mla.py", line 341, in <module>
+[rank0]:     mfu = model.estimate_mfu(batch_size * gradient_accumulation_steps, dt)
+[rank0]:           ^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/users/4/serra082/miniconda3/envs/mats_sae_training/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1729, in __getattr__
+[rank0]:     raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+[rank0]: AttributeError: 'DistributedDataParallel' object has no attribute 'estimate_mfu'

@@ -1,0 +1,25 @@
+tokens per iteration will be: 491,520
+Initializing a new model from scratch
+Initializing a new model from scratch
+number of parameters: 120.01M
+/users/4/serra082/gpt2mla/train_mla.py:184: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=(dtype == 'float16'))
+using fused AdamW: True
+step 0: train loss 10.9600, val loss 10.9594
+iter 0: loss 10.9531, time 12108.32ms, mfu -100.00%
+iter 10: loss 10.4109, time 2577.80ms, mfu 25.46%
+iter 20: loss 9.7674, time 2627.24ms, mfu 25.42%
+iter 30: loss 9.2871, time 2981.62ms, mfu 25.08%
+iter 40: loss 9.1441, time 2582.37ms, mfu 25.11%
+iter 50: loss 9.1683, time 2603.68ms, mfu 25.12%
+iter 60: loss 8.7424, time 2852.78ms, mfu 24.91%
+iter 70: loss 8.4225, time 2579.12ms, mfu 24.96%
+iter 80: loss 8.3854, time 2580.19ms, mfu 25.01%
+iter 90: loss 8.3300, time 2707.33ms, mfu 24.93%
+iter 100: loss 7.7650, time 2576.73ms, mfu 24.99%
+iter 110: loss 7.6253, time 2661.46ms, mfu 24.96%
+iter 120: loss 7.6473, time 2785.61ms, mfu 24.82%
+iter 130: loss 7.5416, time 2756.87ms, mfu 24.72%
+iter 140: loss 7.1063, time 2580.40ms, mfu 24.79%
+iter 150: loss 7.2686, time 2715.32ms, mfu 24.73%
+iter 160: loss 6.9790, time 2590.26ms, mfu 24.79%

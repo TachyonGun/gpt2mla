@@ -25,6 +25,7 @@ import numpy as np
 import torch
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.distributed import init_process_group, destroy_process_group
+import wandb
 
 from model_mla import MLAConfig, GPT_MLA
 
@@ -39,8 +40,8 @@ eval_only = False # if True, script exits right after the first eval
 always_save_checkpoint = True # if True, always save a checkpoint after each eval
 init_from = 'scratch' # 'scratch' or 'resume' (no pretrained model support yet)
 # wandb logging
-wandb_log = False # disabled by default
-wandb_project = 'owt-mla'
+wandb_log = True # enabled
+wandb_project = 'gpt2mla'
 wandb_run_name = 'gpt2-mla' # 'run' + str(time.time())
 # data
 dataset = 'openwebtext'
@@ -98,6 +99,20 @@ else:
     master_process = True
     seed_offset = 0
     ddp_world_size = 1
+
+# Create output directory
+if master_process:
+    os.makedirs(out_dir, exist_ok=True)
+
+# Initialize wandb for master process only
+if master_process and wandb_log:
+    wandb.init(
+        project=wandb_project,
+        name=wandb_run_name,
+        config=config,
+        resume='allow'
+    )
+
 tokens_per_iter = gradient_accumulation_steps * ddp_world_size * batch_size * block_size
 print(f"tokens per iteration will be: {tokens_per_iter:,}")
 
@@ -272,7 +287,6 @@ while True:
         losses = estimate_loss()
         print(f"step {iter_num}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
         if wandb_log:
-            import wandb
             wandb.log({
                 "iter": iter_num,
                 "train/loss": losses['train'],
@@ -305,8 +319,14 @@ while True:
             loss = loss / gradient_accumulation_steps # scale the loss to account for gradient accumulation
         # immediately async prefetch next batch while model is doing the forward pass on the GPU
         X, Y = get_batch('train')
+        
         # backward pass, with gradient scaling if training in fp16
-        scaler.scale(loss).backward()
+        if ddp:
+            # In DDP, need to use no_sync for all but the last gradient accumulation step
+            with model.no_sync() if micro_step < gradient_accumulation_steps - 1 else nullcontext():
+                scaler.scale(loss).backward()
+        else:
+            scaler.scale(loss).backward()
     
     # clip the gradient
     if grad_clip != 0.0:
@@ -328,9 +348,21 @@ while True:
         # get loss as float. note: this is a CPU-GPU sync point
         lossf = loss.item() * gradient_accumulation_steps
         if local_iter_num >= 5: # let the training loop settle a bit
-            mfu = model.estimate_mfu(batch_size * gradient_accumulation_steps, dt)
+            # Access the estimate_mfu method from the underlying model if using DDP
+            if ddp:
+                mfu = model.module.estimate_mfu(batch_size * gradient_accumulation_steps, dt)
+            else:
+                mfu = model.estimate_mfu(batch_size * gradient_accumulation_steps, dt)
             running_mfu = mfu if running_mfu == -1.0 else 0.9*running_mfu + 0.1*mfu
         print(f"iter {iter_num}: loss {lossf:.4f}, time {dt*1000:.2f}ms, mfu {running_mfu*100:.2f}%")
+        if wandb_log:
+            wandb.log({
+                "iter": iter_num,
+                "train/loss": lossf,
+                "train/time_ms": dt * 1000,
+                "train/mfu": running_mfu * 100,
+                "train/lr": lr,
+            })
     iter_num += 1
     local_iter_num += 1
     

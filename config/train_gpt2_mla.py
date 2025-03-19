@@ -3,14 +3,14 @@
 # $ torchrun --standalone --nproc_per_node=8 train_mla.py config/train_gpt2_mla.py
 
 wandb_log = True
-wandb_project = 'owt-mla'
+wandb_project = 'gpt2mla'
 wandb_run_name = 'gpt2-124M-mla'
 
 # these make the total batch size be ~0.5M
-# 12 batch size * 1024 block size * 5 gradaccum * 8 GPUs = 491,520
-batch_size = 12
+# 6 batch size * 1024 block size * 10 gradaccum * 8 GPUs = 491,520
+batch_size = 6
 block_size = 1024
-gradient_accumulation_steps = 5 * 8
+gradient_accumulation_steps = 10 * 8
 
 # this makes total number of tokens be 300B
 max_iters = 600000
@@ -44,4 +44,4 @@ min_lr = 6e-5
 # system
 device = 'cuda' # examples: 'cpu', 'cuda', 'cuda:0', 'cuda:1' etc., or try 'mps' on macbooks
 dtype = 'bfloat16' # 'float32', 'bfloat16', or 'float16'
-compile = True # use PyTorch 2.0 to compile the model to be faster 
+compile = False # turned off to avoid OOM during compilation 

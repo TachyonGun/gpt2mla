@@ -3,7 +3,7 @@
 # $ torchrun --standalone --nproc_per_node=8 train.py config/train_gpt2.py
 
 wandb_log = True
-wandb_project = 'owt'
+wandb_project = 'gpt2mla'
 wandb_run_name='gpt2-124M'
 
 # these make the total batch size be ~0.5M
@@ -23,3 +23,6 @@ log_interval = 10
 
 # weight decay
 weight_decay = 1e-1
+
+# system
+compile = False
