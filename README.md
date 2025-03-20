@@ -4,14 +4,11 @@
 - Added induction head detection:
   - Created `find_induction_heads.py` for analyzing attention patterns
   - Implemented hooks to capture attention patterns in both GPT-2 and MLA models
-  - Found that MLA does not seem to develop induction heads, suggesting a fundamentally different way of processing sequential information
+  - ~~Found that MLA does not seem to develop induction heads, suggesting a fundamentally different way of processing sequential information~~
   - Added visualizations of attention patterns for both architectures
-
-![GPT-2 vs MLA Induction Heads](assets/induction_heads.png)
-
-The heatmaps above show the induction scores for each attention head in both architectures. While GPT-2 shows clear induction heads (bright spots indicating heads that strongly attend to repeated tokens), MLA shows much more diffuse attention patterns, suggesting it processes sequential dependencies differently.
-
----
+- Fixed sampling scripts to work with DDP-trained models:
+  - Updated both `sample.py` and `sample_mla.py` to properly handle state dictionaries from models trained with DistributedDataParallel
+  - Added automatic removal of 'module.' prefix from DDP-trained model weights
 
 ![Full Run](assets/full_run.png)
 
@@ -130,33 +127,4 @@ TODO
 
 #### March 20, 2024
 - Added sampling infrastructure:
-  - Created `sample_mla.py` for generating text from MLA model
-  - Added `slurm_scripts/run_mla_sample.sh` for running sampling from both GPT-2 and MLA models
-  - Added support for comparing outputs between standard GPT-2 and MLA models
-- Trained both models to convergent loss (matching the reported loss for the same configuration)
-
-#### March 19, 2024
-- Fixed DDP (Distributed Data Parallel) training:
-  - Properly handled gradient accumulation with DDP using `model.no_sync()`
-  - Fixed MFU (Model Flops Utilization) calculation for DDP by accessing `model.module`
-  - Added proper wandb initialization for multi-GPU training
-- Memory optimizations:
-  - Reduced micro-batch size from 12 to 6 (then it can run on `a100-4` partition of MSI)
-  - Adjusted gradient accumulation steps to maintain same effective batch size
-  - Disabled model compilation to prevent OOM issues (taking too long on 4 A100s, maybe more sys RAM could have helped?)
-- Infrastructure improvements:
-  - Added automatic output directory creation
-  - Updated wandb project configuration. Just make sure to have a wandb project named `gpt2mla` if you want to leave it on
-  - Fixed gradient scaling deprecation warnings
-- Improved Weights & Biases logging:
-  - Added proper wandb initialization with resume support
-  - Added detailed training metrics logging every `log_interval` iterations:
-    - Training loss
-    - Time per iteration (ms)
-    - Model Flops Utilization (MFU)
-    - Current learning rate
-  - Added validation metrics logging every `eval_interval` iterations:
-    - Training loss
-    - Validation loss
-    - Learning rate
-    - MFU percentage
+  - Created `sample_mla.py`
