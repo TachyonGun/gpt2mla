@@ -1,30 +1,10 @@
 # nanoGPT-MLA
 
-## Last Update: March 19, 2024
-- Fixed DDP (Distributed Data Parallel) training:
-  - Properly handled gradient accumulation with DDP using `model.no_sync()`
-  - Fixed MFU (Model Flops Utilization) calculation for DDP by accessing `model.module`
-  - Added proper wandb initialization for multi-GPU training
-- Memory optimizations:
-  - Reduced micro-batch size from 12 to 6 (then it can run on `a100-4` partition of MSI)
-  - Adjusted gradient accumulation steps to maintain same effective batch size
-  - Disabled model compilation to prevent OOM issues (taking too long on 4 A100s, maybe more sys RAM could have helped?)
-- Infrastructure improvements:
-  - Added automatic output directory creation
-  - Updated wandb project configuration. Just make sure to have a wandb project named `gpt2mla` if you want to leave it on
-  - Fixed gradient scaling deprecation warnings
-- Improved Weights & Biases logging:
-  - Added proper wandb initialization with resume support
-  - Added detailed training metrics logging every `log_interval` iterations:
-    - Training loss
-    - Time per iteration (ms)
-    - Model Flops Utilization (MFU)
-    - Current learning rate
-  - Added validation metrics logging every `eval_interval` iterations:
-    - Training loss
-    - Validation loss
-    - Learning rate
-    - MFU percentage
+## Last Update: March 20, 2024
+- Added sampling infrastructure:
+  - Created `sample_mla.py` for generating text from MLA model
+  - Added `slurm_scripts/run_mla_sample.sh` for running sampling from both GPT-2 and MLA models
+  - Added support for comparing outputs between standard GPT-2 and MLA models
 
 ![Multi-Latent Attention](assets/mla_diagram.jpg)
 
@@ -132,3 +112,33 @@ As for usage:
 ## License
 
 TODO
+
+---
+
+### Changelog
+
+#### March 19, 2024
+- Fixed DDP (Distributed Data Parallel) training:
+  - Properly handled gradient accumulation with DDP using `model.no_sync()`
+  - Fixed MFU (Model Flops Utilization) calculation for DDP by accessing `model.module`
+  - Added proper wandb initialization for multi-GPU training
+- Memory optimizations:
+  - Reduced micro-batch size from 12 to 6 (then it can run on `a100-4` partition of MSI)
+  - Adjusted gradient accumulation steps to maintain same effective batch size
+  - Disabled model compilation to prevent OOM issues (taking too long on 4 A100s, maybe more sys RAM could have helped?)
+- Infrastructure improvements:
+  - Added automatic output directory creation
+  - Updated wandb project configuration. Just make sure to have a wandb project named `gpt2mla` if you want to leave it on
+  - Fixed gradient scaling deprecation warnings
+- Improved Weights & Biases logging:
+  - Added proper wandb initialization with resume support
+  - Added detailed training metrics logging every `log_interval` iterations:
+    - Training loss
+    - Time per iteration (ms)
+    - Model Flops Utilization (MFU)
+    - Current learning rate
+  - Added validation metrics logging every `eval_interval` iterations:
+    - Training loss
+    - Validation loss
+    - Learning rate
+    - MFU percentage
