@@ -6,6 +6,12 @@
   - Added `slurm_scripts/run_mla_sample.sh` for running sampling from both GPT-2 and MLA models
   - Added support for comparing outputs between standard GPT-2 and MLA models
 
+- Trained both models to convergent loss (matching the reported loss for the same configuration)
+
+![Full Run](assets/comparison.png)
+
+---
+
 ![Multi-Latent Attention](assets/mla_diagram.jpg)
 
 This project is a fork of [nanoGPT](https://github.com/karpathy/nanoGPT) that implements and explores Multi-Latent Attention (MLA) as an alternative to standard Multi-Head Attention (MHA) in transformer architectures.
