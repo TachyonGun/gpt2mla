@@ -8,7 +8,7 @@
 
 - Trained both models to convergent loss (matching the reported loss for the same configuration)
 
-![Full Run](assets/comparison.png)
+![Full Run](assets/full_run.png)
 
 ---
 
