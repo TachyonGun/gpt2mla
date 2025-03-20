@@ -4,11 +4,43 @@
 - Added induction head detection:
   - Created `find_induction_heads.py` for analyzing attention patterns
   - Implemented hooks to capture attention patterns in both GPT-2 and MLA models
-  - ~~Found that MLA does not seem to develop induction heads, suggesting a fundamentally different way of processing sequential information~~
-  - Added visualizations of attention patterns for both architectures
+  - Found induction heads in both architectures, with MLA showing more layer-wise specialization?
+
+![GPT-2 vs MLA Induction Heads](assets/induction_heads.png)
+
+The heatmaps above show the induction scores for each attention head in both architectures. While GPT-2's induction heads are distributed across 3 layers, MLA shows a more concentrated pattern with stronger induction behavior in layer 8: a different organization of capabilities? Using the common 0.4 threshold, we detect:
+
+```
+GPT-2 Induction Heads:
+Layer 5, Head 0: 0.453
+Layer 5, Head 1: 0.891
+Layer 5, Head 5: 0.922
+Layer 6, Head 9: 0.910
+Layer 7, Head 2: 0.834
+Layer 7, Head 10: 0.910
+Layer 9, Head 6: 0.484
+Layer 9, Head 9: 0.490
+Layer 10, Head 0: 0.432
+Layer 10, Head 1: 0.490
+
+MLA Induction Heads:
+Layer 6, Head 10: 0.849
+Layer 8, Head 1: 0.927
+Layer 8, Head 2: 0.482
+Layer 8, Head 5: 0.746
+Layer 8, Head 6: 0.853
+Layer 8, Head 9: 0.491
+Layer 8, Head 10: 0.927
+Layer 11, Head 2: 0.483
+```
+
+---
+
 - Fixed sampling scripts to work with DDP-trained models:
   - Updated both `sample.py` and `sample_mla.py` to properly handle state dictionaries from models trained with DistributedDataParallel
   - Added automatic removal of 'module.' prefix from DDP-trained model weights
+
+
 
 ![Full Run](assets/full_run.png)
 

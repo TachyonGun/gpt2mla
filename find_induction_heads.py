@@ -146,7 +146,6 @@ def main():
 
     # Load GPT-2
     print("Testing GPT-2...")
-    gpt2_config = GPTConfig(n_layer=12, n_head=12, n_embd=768)
     gpt2_model = GPT.from_pretrained('gpt2', override_args=dict(dropout=0.0))
     gpt2_model.to(device)
     gpt2_model.eval()
@@ -157,10 +156,23 @@ def main():
     gpt2_scores = compute_induction_scores(gpt2_patterns, seq_len)
     plot_induction_scores(gpt2_scores, "GPT-2")
 
-    # Load MLA model
+    # Load MLA model from checkpoint
     print("\nTesting MLA model...")
-    mla_config = MLAConfig(n_layer=12, n_head=12, n_embd=768, n_latent=384)
+    ckpt_path = os.path.join('out_mla', 'ckpt_mla.pt')
+    checkpoint = torch.load(ckpt_path, map_location=device)
+    mla_config = MLAConfig(**checkpoint['model_args'])
     mla_model = GPT_MLA(mla_config)
+    
+    # Fix the state dict if it was saved from a DDP model
+    state_dict = checkpoint['model']
+    new_state_dict = {}
+    for k, v in state_dict.items():
+        if k.startswith('module.'):
+            new_state_dict[k[7:]] = v  # Remove 'module.' prefix
+        else:
+            new_state_dict[k] = v
+    
+    mla_model.load_state_dict(new_state_dict)
     mla_model.to(device)
     mla_model.eval()
 
