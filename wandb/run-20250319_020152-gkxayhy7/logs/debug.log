@@ -1,0 +1,25 @@
+2025-03-19 02:01:52,299 INFO    MainThread:2732310 [wandb_setup.py:_flush():77] Current SDK version is 0.18.1
+2025-03-19 02:01:52,299 INFO    MainThread:2732310 [wandb_setup.py:_flush():77] Configure stats pid to 2732310
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_setup.py:_flush():77] Loading settings from /users/4/serra082/.config/wandb/settings
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_setup.py:_flush():77] Loading settings from /users/4/serra082/gpt2mla/wandb/settings
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_setup.py:_flush():77] Loading settings from environment variables: {}
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_setup.py:_flush():77] Applying setup settings: {'mode': None, '_disable_service': None}
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_setup.py:_flush():77] Inferring run settings from compute environment: {'program_relpath': 'train_mla.py', 'program_abspath': '/users/4/serra082/gpt2mla/train_mla.py', 'program': '/users/4/serra082/gpt2mla/train_mla.py'}
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_setup.py:_flush():77] Applying login settings: {}
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_init.py:_log_setup():532] Logging user logs to /users/4/serra082/gpt2mla/wandb/run-20250319_020152-gkxayhy7/logs/debug.log
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_init.py:_log_setup():533] Logging internal logs to /users/4/serra082/gpt2mla/wandb/run-20250319_020152-gkxayhy7/logs/debug-internal.log
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_init.py:init():616] calling init triggers
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_init.py:init():623] wandb.init called with sweep_config: {}
+config: {'out_dir': 'out-mla', 'eval_interval': 1000, 'log_interval': 10, 'eval_iters': 200, 'eval_only': False, 'always_save_checkpoint': True, 'init_from': 'scratch', 'wandb_log': True, 'wandb_project': 'gpt2mla', 'wandb_run_name': 'gpt2-124M-mla', 'dataset': 'openwebtext', 'gradient_accumulation_steps': 80, 'batch_size': 6, 'block_size': 1024, 'n_layer': 12, 'n_head': 12, 'n_embd': 768, 'n_latent': 384, 'dropout': 0.0, 'bias': False, 'learning_rate': 0.0006, 'max_iters': 600000, 'weight_decay': 0.1, 'beta1': 0.9, 'beta2': 0.95, 'grad_clip': 1.0, 'decay_lr': True, 'warmup_iters': 2000, 'lr_decay_iters': 600000, 'min_lr': 6e-05, 'backend': 'nccl', 'device': 'cuda', 'dtype': 'bfloat16', 'compile': False}
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_init.py:init():666] starting backend
+2025-03-19 02:01:52,300 INFO    MainThread:2732310 [wandb_init.py:init():670] setting up manager
+2025-03-19 02:01:52,301 INFO    MainThread:2732310 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-03-19 02:01:52,308 INFO    MainThread:2732310 [wandb_init.py:init():678] backend started and connected
+2025-03-19 02:01:52,310 INFO    MainThread:2732310 [wandb_init.py:init():773] updated telemetry
+2025-03-19 02:01:52,348 INFO    MainThread:2732310 [wandb_init.py:init():806] communicating run to backend with 90.0 second timeout
+2025-03-19 02:01:52,684 INFO    MainThread:2732310 [wandb_init.py:init():857] starting run threads in backend
+2025-03-19 02:01:53,903 INFO    MainThread:2732310 [wandb_run.py:_console_start():2459] atexit reg
+2025-03-19 02:01:53,903 INFO    MainThread:2732310 [wandb_run.py:_redirect():2307] redirect: wrap_raw
+2025-03-19 02:01:53,903 INFO    MainThread:2732310 [wandb_run.py:_redirect():2372] Wrapping output streams.
+2025-03-19 02:01:53,903 INFO    MainThread:2732310 [wandb_run.py:_redirect():2397] Redirects installed.
+2025-03-19 02:01:53,916 INFO    MainThread:2732310 [wandb_init.py:init():900] run started, returning control to user process

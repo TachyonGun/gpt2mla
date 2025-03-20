@@ -1,0 +1,11 @@
+{"time":"2025-03-19T02:01:52.319468686-05:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2025-03-19T02:01:52.319485267-05:00","level":"INFO","msg":"created symlink","path":"/users/4/serra082/gpt2mla/wandb/run-20250319_020152-gkxayhy7/logs/debug-core.log"}
+{"time":"2025-03-19T02:01:52.320738433-05:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2025-03-19T02:01:52.320748051-05:00","level":"INFO","msg":"created symlink","path":"/users/4/serra082/gpt2mla/wandb/run-20250319_020152-gkxayhy7/logs/debug-core.log"}
+{"time":"2025-03-19T02:01:52.341173184-05:00","level":"INFO","msg":"created new stream","id":"gkxayhy7"}
+{"time":"2025-03-19T02:01:52.341212497-05:00","level":"INFO","msg":"stream: started","id":"gkxayhy7"}
+{"time":"2025-03-19T02:01:52.341248705-05:00","level":"INFO","msg":"sender: started","stream_id":{"value":"gkxayhy7"}}
+{"time":"2025-03-19T02:01:52.341333794-05:00","level":"INFO","msg":"handler: started","stream_id":{"value":"gkxayhy7"}}
+{"time":"2025-03-19T02:01:52.341232785-05:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"gkxayhy7"}}
+{"time":"2025-03-19T02:01:52.690784712-05:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-03-19T02:01:52.700559789-05:00","level":"INFO","msg":"Starting system monitor"}

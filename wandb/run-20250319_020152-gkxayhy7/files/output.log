@@ -1,0 +1,51 @@
+tokens per iteration will be: 491,520
+Initializing a new model from scratch
+Initializing a new model from scratch
+number of parameters: 120.01M
+/users/4/serra082/gpt2mla/train_mla.py:184: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=(dtype == 'float16'))
+using fused AdamW: True
+step 0: train loss 10.9600, val loss 10.9594
+iter 0: loss 10.9531, time 15655.86ms, mfu -100.00%
+iter 10: loss 10.4110, time 2621.08ms, mfu 25.04%
+iter 20: loss 9.7673, time 2653.46ms, mfu 25.01%
+iter 30: loss 9.2871, time 2598.32ms, mfu 25.04%
+iter 40: loss 9.1440, time 2580.16ms, mfu 25.08%
+iter 50: loss 9.1683, time 2617.04ms, mfu 25.08%
+iter 60: loss 8.7424, time 2653.25ms, mfu 25.04%
+iter 70: loss 8.4224, time 2585.71ms, mfu 25.08%
+iter 80: loss 8.3857, time 2681.81ms, mfu 25.02%
+iter 90: loss 8.3305, time 2886.06ms, mfu 24.79%
+iter 100: loss 7.7673, time 2586.56ms, mfu 24.85%
+iter 110: loss 7.6241, time 2620.75ms, mfu 24.87%
+iter 120: loss 7.6443, time 2587.06ms, mfu 24.92%
+iter 130: loss 7.5413, time 2794.86ms, mfu 24.78%
+iter 140: loss 7.1093, time 2608.35ms, mfu 24.82%
+iter 150: loss 7.2765, time 2715.91ms, mfu 24.75%
+iter 160: loss 6.9832, time 2676.90ms, mfu 24.73%
+iter 170: loss 6.8024, time 2732.49ms, mfu 24.66%
+iter 180: loss 6.8967, time 2577.46ms, mfu 24.74%
+iter 190: loss 6.5658, time 2586.29ms, mfu 24.80%
+iter 200: loss 6.2297, time 2705.78ms, mfu 24.75%
+iter 210: loss 6.3251, time 2594.90ms, mfu 24.80%
+iter 220: loss 6.2904, time 2578.26ms, mfu 24.87%
+iter 230: loss 6.6256, time 2888.91ms, mfu 24.65%
+iter 240: loss 5.8483, time 2577.84ms, mfu 24.73%
+iter 250: loss 6.2640, time 2956.51ms, mfu 24.48%
+iter 260: loss 6.1048, time 2971.01ms, mfu 24.24%
+iter 270: loss 6.2972, time 3022.43ms, mfu 23.99%
+iter 280: loss 6.6116, time 3182.17ms, mfu 23.65%
+iter 290: loss 6.1492, time 2866.62ms, mfu 23.58%
+iter 300: loss 6.3417, time 2673.83ms, mfu 23.68%
+iter 310: loss 6.1403, time 2577.63ms, mfu 23.85%
+iter 320: loss 6.2509, time 2577.94ms, mfu 24.02%
+iter 330: loss 6.0611, time 2620.61ms, mfu 24.12%
+iter 340: loss 5.7371, time 2603.34ms, mfu 24.23%
+iter 350: loss 6.0037, time 2765.24ms, mfu 24.18%
+iter 360: loss 5.5915, time 2658.53ms, mfu 24.23%
+iter 370: loss 5.7680, time 2782.50ms, mfu 24.17%
+iter 380: loss 6.1274, time 2888.90ms, mfu 24.02%
+iter 390: loss 6.0842, time 2851.65ms, mfu 23.92%
+iter 400: loss 6.1301, time 2734.21ms, mfu 23.93%
+iter 410: loss 5.8322, time 2582.66ms, mfu 24.08%
+iter 420: loss 6.0314, time 2659.96ms, mfu 24.14%

@@ -1,0 +1,20 @@
+{"time":"2025-03-19T14:12:02.270171319-05:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2025-03-19T14:12:02.270197578-05:00","level":"INFO","msg":"created symlink","path":"/users/4/serra082/gpt2mla/wandb/run-20250319_141202-csvwvz0u/logs/debug-core.log"}
+{"time":"2025-03-19T14:12:02.2713789-05:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2025-03-19T14:12:02.271387125-05:00","level":"INFO","msg":"created symlink","path":"/users/4/serra082/gpt2mla/wandb/run-20250319_141202-csvwvz0u/logs/debug-core.log"}
+{"time":"2025-03-19T14:12:02.289623544-05:00","level":"INFO","msg":"created new stream","id":"csvwvz0u"}
+{"time":"2025-03-19T14:12:02.289659261-05:00","level":"INFO","msg":"stream: started","id":"csvwvz0u"}
+{"time":"2025-03-19T14:12:02.289697031-05:00","level":"INFO","msg":"sender: started","stream_id":{"value":"csvwvz0u"}}
+{"time":"2025-03-19T14:12:02.289675952-05:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"csvwvz0u"}}
+{"time":"2025-03-19T14:12:02.289697222-05:00","level":"INFO","msg":"handler: started","stream_id":{"value":"csvwvz0u"}}
+{"time":"2025-03-19T14:12:02.713632384-05:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-03-19T14:12:02.738162478-05:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-20T00:38:28.729716145-05:00","level":"INFO","msg":"api: retrying HTTP request, no error or response"}
+{"time":"2025-03-20T03:56:59.898216584-05:00","level":"INFO","msg":"api: retrying HTTP request, no error or response"}
+{"time":"2025-03-20T10:46:05.949278205-05:00","level":"INFO","msg":"stream: closing","id":"csvwvz0u"}
+{"time":"2025-03-20T10:46:05.949439096-05:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-20T10:46:05.951107731-05:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-20T10:46:06.73093912-05:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"csvwvz0u"}}
+{"time":"2025-03-20T10:46:06.73097672-05:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"csvwvz0u"}}
+{"time":"2025-03-20T10:46:06.73099776-05:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"csvwvz0u"}}
+{"time":"2025-03-20T10:46:06.735880373-05:00","level":"INFO","msg":"stream: closed","id":"csvwvz0u"}
