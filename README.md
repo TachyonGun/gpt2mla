@@ -1,12 +1,17 @@
 # nanoGPT-MLA
 
-## Last Update: March 20, 2024
-- Added sampling infrastructure:
-  - Created `sample_mla.py` for generating text from MLA model
-  - Added `slurm_scripts/run_mla_sample.sh` for running sampling from both GPT-2 and MLA models
-  - Added support for comparing outputs between standard GPT-2 and MLA models
+## Last Update: March 21, 2024
+- Added induction head detection:
+  - Created `find_induction_heads.py` for analyzing attention patterns
+  - Implemented hooks to capture attention patterns in both GPT-2 and MLA models
+  - Found that MLA does not seem to develop induction heads, suggesting a fundamentally different way of processing sequential information
+  - Added visualizations of attention patterns for both architectures
 
-- Trained both models to convergent loss (matching the reported loss for the same configuration)
+![GPT-2 vs MLA Induction Heads](assets/induction_heads.png)
+
+The heatmaps above show the induction scores for each attention head in both architectures. While GPT-2 shows clear induction heads (bright spots indicating heads that strongly attend to repeated tokens), MLA shows much more diffuse attention patterns, suggesting it processes sequential dependencies differently.
+
+---
 
 ![Full Run](assets/full_run.png)
 
@@ -122,6 +127,13 @@ TODO
 ---
 
 ### Changelog
+
+#### March 20, 2024
+- Added sampling infrastructure:
+  - Created `sample_mla.py` for generating text from MLA model
+  - Added `slurm_scripts/run_mla_sample.sh` for running sampling from both GPT-2 and MLA models
+  - Added support for comparing outputs between standard GPT-2 and MLA models
+- Trained both models to convergent loss (matching the reported loss for the same configuration)
 
 #### March 19, 2024
 - Fixed DDP (Distributed Data Parallel) training:
