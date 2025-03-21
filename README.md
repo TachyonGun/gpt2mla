@@ -5,6 +5,8 @@
   - Created `find_induction_heads.py` for analyzing attention patterns
   - Implemented hooks to capture attention patterns in both GPT-2 and MLA models
   - Found induction heads in both architectures, with MLA showing more layer-wise specialization?
+  - Replicated induction head findings from Olsson et al., 2022
+  - Implemented copying score analysis from Wang et al., 2023
 
 ![GPT-2 vs MLA Induction Heads](assets/induction_heads.png)
 
@@ -160,3 +162,9 @@ TODO
 #### March 20, 2024
 - Added sampling infrastructure:
   - Created `sample_mla.py`
+
+## References
+
+1. Catherine Olsson, Nelson Elhage, Neel Nanda, Nicholas Joseph, Nova DasSarma, Tom Henighan, Ben Mann, Amanda Askell, Yuntao Bai, Anna Chen, Tom Conerly, Dawn Drain, Deep Ganguli, Zac Hatfield-Dodds, Danny Hernandez, Scott Johnston, Andy Jones, Jackson Kernion, Liane Lovitt, Kamal Ndousse, Dario Amodei, Tom Brown, Jack Clark, Jared Kaplan, Sam McCandlish, and Chris Olah. In-context learning and induction heads, 2022. URL https://arxiv.org/abs/2209.11895.
+
+2. Kevin Ro Wang, Alexandre Variengien, Arthur Conmy, Buck Shlegeris, and Jacob Steinhardt. Interpretability in the wild: a circuit for indirect object identification in GPT-2 small. In The Eleventh International Conference on Learning Representations, 2023. URL https://openreview.net/forum?id=NpsVSN6o4ul.
