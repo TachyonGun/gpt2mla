@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from model import GPT, GPTConfig
 from model_mla import GPT_MLA, MLAConfig
 import plotly.express as px
+import argparse
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -139,14 +140,47 @@ def plot_induction_scores(scores, model_name):
     )
     fig.show()
 
+def load_gpt_model(use_openai_weights=False):
+    """
+    Load GPT model either from local checkpoint or OpenAI weights
+    """
+    if use_openai_weights:
+        print("Loading GPT-2 from OpenAI weights...")
+        model = GPT.from_pretrained('gpt2', override_args=dict(dropout=0.0))
+    else:
+        print("Loading GPT-2 from local checkpoint...")
+        ckpt_path = os.path.join('out', 'ckpt.pt')
+        print(ckpt_path)
+        checkpoint = torch.load(ckpt_path, map_location=device)
+        gptconf = GPTConfig(**checkpoint['model_args'])
+        model = GPT(gptconf)
+        
+        # Fix the state dict if it was saved from a DDP model
+        state_dict = checkpoint['model']
+        new_state_dict = {}
+        for k, v in state_dict.items():
+            if k.startswith('module.'):
+                new_state_dict[k[7:]] = v  # Remove 'module.' prefix
+            else:
+                new_state_dict[k] = v
+        
+        model.load_state_dict(new_state_dict)
+    
+    return model
+
 def main():
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description='Analyze induction heads in GPT models')
+    parser.add_argument('--openai_weights', action='store_true',
+                      help='Use OpenAI pretrained weights instead of local checkpoint')
+    args = parser.parse_args()
+
     # Test sequence parameters
     seq_len = 50
     batch_size = 1
 
     # Load GPT-2
-    print("Testing GPT-2...")
-    gpt2_model = GPT.from_pretrained('gpt2', override_args=dict(dropout=0.0))
+    gpt2_model = load_gpt_model(args.openai_weights)
     gpt2_model.to(device)
     gpt2_model.eval()
 
