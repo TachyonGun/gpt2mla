@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 from model import GPT, GPTConfig
 from model_mla import GPT_MLA, MLAConfig
 import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import argparse
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -129,15 +131,59 @@ def compute_induction_scores(attention_patterns, seq_len):
 
 def plot_induction_scores(scores, model_name):
     """
-    Create a heatmap of induction scores using plotly
+    Create a heatmap of induction scores with an additional barplot showing layer averages
     """
-    fig = px.imshow(
-        scores.cpu().numpy(),
-        labels=dict(x="Head", y="Layer", color="Induction Score"),
-        title=f"Induction Scores for {model_name}",
-        color_continuous_scale="RdBu",
-        aspect="auto"
+    # Convert scores to numpy for calculations
+    scores_np = scores.cpu().numpy()
+    
+    # Calculate layer averages (mean across heads for each layer)
+    layer_averages = scores_np.mean(axis=1)
+    
+    # Create subplot layout with custom widths
+    fig = make_subplots(rows=1, cols=2, column_widths=[0.8, 0.2],
+                        horizontal_spacing=0.15)
+    
+    # Add heatmap
+    fig.add_trace(
+        go.Heatmap(
+            z=scores_np,
+            colorscale="RdBu",
+            zmin=0,
+            zmax=1,
+            showscale=True,
+            colorbar=dict(
+                title="Induction Score",
+                x=-0.15,  # Moved colorbar to the left
+                len=0.7,
+                thickness=15
+            )
+        ),
+        row=1, col=1
     )
+    
+    # Add vertical barplot
+    fig.add_trace(
+        go.Bar(
+            x=layer_averages,
+            y=list(range(len(layer_averages))),
+            orientation='h',
+            marker=dict(color=layer_averages, colorscale="RdBu"),
+            showlegend=False
+        ),
+        row=1, col=2
+    )
+    
+    # Update layout
+    fig.update_layout(
+        title=f"Induction Scores for {model_name}",
+        height=600,
+        yaxis=dict(title="Layer", autorange="reversed"),
+        yaxis2=dict(title="", showticklabels=False, autorange="reversed"),
+        xaxis=dict(title="Head"),
+        xaxis2=dict(title="Average Score", range=[0, 1]),
+        margin=dict(l=120, r=50)  # Added left margin for colorbar
+    )
+    
     fig.show()
 
 def load_gpt_model(use_openai_weights=False):

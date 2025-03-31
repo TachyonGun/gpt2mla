@@ -1,5 +1,4 @@
 import os
-os.chdir('..')
 import math
 import torch
 import numpy as np

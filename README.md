@@ -6,7 +6,16 @@
 - Added support for multi-token prediction (k-ahead prediction)
   - New model architecture in `model_k_ahead.py` that predicts k tokens at once
   - Modified training script `train_k_ahead.py` to support k-ahead prediction
-  - Added test script to validate model architecture (model tested, training script **NOT** tested)
+  - Added test script to validate model architecture (model tested, training script pending validation)
+
+- Added `visualize_residual_space_gpt2.py` script to visualize the residual stream activations in GPT-2:
+
+![2D Visualization](assets/mlapca.png)
+
+- Projects the 768-dimensional residual stream to 2D using PCA
+- Shows the evolution of token representations through all 12 transformer blocks
+- Supports both local checkpoints and OpenAI's pretrained weights
+- Includes options for repeated sequences and subset plotting
 
 ---
 
@@ -121,11 +130,18 @@ TODO
 
 ### Changelog
 
+#### Latest Changes
+
 #### March 30, 2024
 - Added support for multi-token prediction (k-ahead prediction)
   - New model architecture in `model_k_ahead.py` that predicts k tokens at once
   - Modified training script `train_k_ahead.py` to support k-ahead prediction
   - Added test script to validate model architecture (model tested, training script pending validation)
+- Added `visualize_residual_space_gpt2.py` script to visualize the residual stream activations in GPT-2:
+- Projects the 768-dimensional residual stream to 2D using PCA
+- Shows the evolution of token representations through all 12 transformer blocks
+- Supports both local checkpoints and OpenAI's pretrained weights
+- Includes options for repeated sequences and subset plotting
 
 #### March 24, 2024
 - Added various subspace analysis scripts 
