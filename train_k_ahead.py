@@ -112,14 +112,14 @@ def get_batch(split):
         data = np.memmap(os.path.join(data_dir, 'val.bin'), dtype=np.uint16, mode='r')
     
     # Ensure we have enough tokens for k-ahead prediction
-    max_index = len(data) - block_size - K_AHEAD + 1
+    max_index = len(data) - block_size - K_AHEAD
     ix = torch.randint(max_index, (batch_size,))
     
     # Get input sequence
     x = torch.stack([torch.from_numpy((data[i:i+block_size]).astype(np.int64)) for i in ix])
     
-    # Get K_AHEAD target sequences
-    y = torch.stack([torch.from_numpy((data[i+1:i+block_size+K_AHEAD]).astype(np.int64)) for i in ix])
+    # Get target sequence that includes K_AHEAD additional tokens
+    y = torch.stack([torch.from_numpy((data[i+1:i+block_size+K_AHEAD+1]).astype(np.int64)) for i in ix])
     
     if device_type == 'cuda':
         # pin arrays x,y, which allows us to move them to GPU asynchronously (non_blocking=True)

@@ -191,20 +191,24 @@ class GPT(nn.Module):
                 head_logits = self.lm_heads[k](x)  # (b, t, vocab_size)
                 logits.append(head_logits)
                 
-                # Calculate loss using the same target sequence for all heads
-                loss = F.cross_entropy(
-                    head_logits.view(-1, head_logits.size(-1)),
-                    targets.view(-1),
-                    ignore_index=-1
-                )
-                losses.append(loss)
-            
-            # Average the losses across all heads
-            loss = sum(losses) / len(losses)
+                # Calculate loss for k-steps ahead prediction
+                # Shift targets by k+1 positions (k=0 predicts next token, k=1 predicts token after that, etc.)
+                shifted_targets = targets[:, k:] if k < targets.size(1) else None
+                if shifted_targets is not None and shifted_targets.nelement() > 0:
+                    # Only compute loss on positions where we have targets
+                    loss = F.cross_entropy(
+                        head_logits[:, :-k-1].reshape(-1, head_logits.size(-1)),
+                        shifted_targets.reshape(-1),
+                        ignore_index=-1
+                    )
+                    losses.append(loss)
+                
+            # Average the losses across all heads that had valid targets
+            loss = sum(losses) / len(losses) if losses else None
             # Stack logits for all heads
             logits = torch.stack(logits, dim=1)  # (b, K_AHEAD, t, vocab_size)
         else:
-            # For inference, we only need the last position's predictions
+            # For inference, we get predictions for next K tokens
             logits = torch.stack([head(x[:, [-1], :]) for head in self.lm_heads], dim=1)
             loss = None
 
@@ -335,7 +339,9 @@ class GPT(nn.Module):
             idx_cond = idx if idx.size(1) <= self.config.block_size else idx[:, -self.config.block_size:]
             # forward the model to get the logits for the index in the sequence
             logits, _ = self(idx_cond)
-            # pluck the logits at the final step and scale by desired temperature
+            # We can now use predictions from all heads to generate K tokens at once
+            # But for now, we'll stick to one token at a time using the first head
+            # to maintain the exact same sampling behavior as before
             logits = logits[:, 0, -1, :] / temperature  # Use predictions from first head only
             # optionally crop the logits to only the top k options
             if top_k is not None:
