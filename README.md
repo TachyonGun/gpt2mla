@@ -1,10 +1,12 @@
 # nanoGPT-MLA
 
 ## Last Update: 
-#### March 24
+#### March 30
 
-- Added various subspace analysis scripts 
-- TODO: Clean repo and put scripts in folders for organization
+- Added support for multi-token prediction (k-ahead prediction)
+  - New model architecture in `model_k_ahead.py` that predicts k tokens at once
+  - Modified training script `train_k_ahead.py` to support k-ahead prediction
+  - Added test script to validate model architecture (model tested, training script **NOT** tested)
 
 ---
 
@@ -118,6 +120,16 @@ TODO
 ---
 
 ### Changelog
+
+#### March 30, 2024
+- Added support for multi-token prediction (k-ahead prediction)
+  - New model architecture in `model_k_ahead.py` that predicts k tokens at once
+  - Modified training script `train_k_ahead.py` to support k-ahead prediction
+  - Added test script to validate model architecture (model tested, training script pending validation)
+
+#### March 24, 2024
+- Added various subspace analysis scripts 
+- TODO: Clean repo and put scripts in folders for organization
 
 #### March 20, 2024
 - Added sampling infrastructure:

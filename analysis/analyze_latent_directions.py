@@ -60,7 +60,7 @@ def analyze_latent_directions(model):
         alignment_scores = torch.matmul(W_l, W_E.t())
         
         # Get top 10 aligned tokens for each latent direction
-        top_k = 20
+        top_k = 1000
         top_scores, top_indices = torch.topk(alignment_scores, k=top_k, dim=1)
         
         # Collect all top tokens for layer-wise summary
@@ -80,7 +80,7 @@ def analyze_latent_directions(model):
             # Print top aligned tokens and their scores
             for token_idx, score in zip(tokens, scores):
                 token_str = decode([token_idx])
-                print(f"Token: {token_str!r}, Score: {score:.3f}, Index: {token_idx}")
+                #print(f"Token: {token_str!r}, Score: {score:.3f}, Index: {token_idx}")
         
         # Store layer summary
         token_counter = Counter(all_top_tokens)
